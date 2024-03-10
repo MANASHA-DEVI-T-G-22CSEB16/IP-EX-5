@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -25,7 +24,7 @@
                     <label for="Address">Address [Alphanumeric Characters] : </label>
                     <input type="text" name="Address" id="Address" class="input-section" required/><br/><br/>
                     <label for="Country">Country [Must Select a Country] : </label>
-                    <select class="select-section" id="Continent">
+                    <select class="select-section" id="Country">
                         <option disabled selected>(Please Select a Country)</option>
                         <option value="India">India</option>
                         <option value="America">America</option>
@@ -40,11 +39,15 @@
                     <label for="Email">Email [Valid Email] : </label>
                     <input type="email" name="Email" id="Email" class="input-section" required/><br/><br/>
                     <label for="Gender">Select Male or Female : </label>
-                    <input type="radio" name="Gender" id="Male" value="Male"/>Male
-                    <input type="radio" name="Gender" id="Female" value="Female"/>Female<br/><br/>
+                    <input type="radio" name="Gender" id="Male" value="Male"/>
+                    <label for="Male" id="Male-label" style="border: 1px solid black;">Male</label>
+                    <input type="radio" name="Gender" id="Female" value="Female"/>
+                    <label for="Female" id="Female-label" style="border: 1px solid black;">Female</label><br/><br/>
                     <label for="Language">Language [Optional] : </label>
-                    <input type="checkbox" name="Language" id="English" value="English"/>English
-                    <input type="checkbox" name="Language" id="Non-English" value="Non-English"/>Non-English<br/><br/>
+                    <input type="checkbox" name="Language" id="English" value="English"/>
+                    <label for="English" id="English-box" style="border: 1px solid black;">English</label>
+                    <input type="checkbox" name="Language" id="Non-English" value="Non-English"/>
+                    <label for="Non-English" id="Non-English-box" style="border: 1px solid black;">Non-English</label><br/><br/>
                     <label for="About">About [Optional] : </label>
                     <textarea name="About" id="About" cols="30" rows="10"></textarea><br/><br/>
                     <button value="submit" id="submit-button">Submit</button>
@@ -91,9 +94,74 @@
                         }else{
                             address.style.borderColor = 'green';
                         }
+                        const Country = document.getElementById('Country');
+                        const CountrySelected = Country.options[Country.selectedIndex].text;
+                        if(CountrySelected != '(Please Select a Country)'){
+                            Country.style.borderColor = 'green';
+                        }else{
+                            Country.style.borderColor = 'red';
+                        }
+                        const zipcode = document.getElementById('ZIP_code');
+                        const zipcode_value = zipcode.value.trim();
+                        const zipcode_pattern = /[a-z0-9\.]+/i;
+                        const zipcode_check = zipcode_pattern.test(zipcode_value);
+                        if(zipcode_check === '' || !(zipcode_check)){
+                            zipcode.style.borderColor = 'red';
+                        }else{
+                            zipcode.style.borderColor = 'green';
+                        }
+                        const email = document.getElementById('Email');
+                        const email_value = email.value;
+                        const email_pattern = /[a-z0-9\.]+\@+[a-z{5}]\.[a-z{3}]+/;
+                        const email_check = email_pattern.test(email_value);
+                        if(email_value === '' || !(email_check)){
+                            email.style.borderColor = 'red';
+                        }else{
+                            email.style.borderColor = 'green';
+                        }
+                        const maleRadio = document.getElementById('Male');
+                        const femaleRadio = document.getElementById('Female');
+                        const maleLabel = document.getElementById('Male-label');
+                        const femaleLabel = document.getElementById('Female-label');
+                        if(maleRadio && femaleRadio){
+                            var maleRadioCheck = maleRadio.checked;
+                            var femaleRadioCheck = femaleRadio.checked;
+                            if(maleRadioCheck && !(femaleRadioCheck)){
+                                maleLabel.style.borderColor = 'green';
+                                femaleLabel.style.borderColor = 'red';
+                            }else if(!(maleRadioCheck) && femaleRadioCheck){
+                                maleLabel.style.borderColor = 'red';
+                                femaleLabel.style.borderColor = 'green';
+                            }else{
+                                maleLabel.style.borderColor = 'red';
+                                femaleLabel.style.borderColor = 'red';
+                            }
+                        }
+                        const engCheckBox = document.getElementById('English');
+                        const nonengCheckBox = document.getElementById('Non-English');
+                        const engBox = document.getElementById('English-box');
+                        const nonEngBox = document.getElementById('Non-English-box');
+                        if(engCheckBox && nonengCheckBox){
+                            console.log('Method Works!');
+                            const engBoxCheck = engCheckBox.checked;
+                            const nonEngBoxCheck = nonengCheckBox.checked;
+                            if(!(engBoxCheck) && !(nonEngBoxCheck)){
+                                engBox.style.borderColor = 'red';
+                                nonEngBox.style.borderColor = 'red';
+                            }else if(!(engBoxCheck) && nonEngBox){
+                                engBox.style.borderColor = 'red';
+                                nonEngBox.style.borderColor = 'green';
+                            }else if(engBoxCheck && !(nonEngBox)){
+                                engBox.style.borderColor = 'green';
+                                nonEngBox.style.borderColor = 'red';
+                            }else{
+                                engBox.style.borderColor = 'green';
+                                nonEngBox.style.borderColor = 'green';
+                            }
+                        }
                     }
                 });
             </script>
         </main>
     </body>
-</html>\
+</html>
