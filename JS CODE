@@ -1,1 +1,99 @@
 
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="Forms" content="Form-Validation"/>
+        <title>Form Validation</title>
+        <link rel="stylesheet" href="FormStyles.css" type="text/css">
+        <style>
+            .error{
+                border: 1px solid red;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div class="form-section">
+                <form id="form">
+                    <label for="user_id">user_id [5 to 7 Characters] : </label>
+                    <input type="text" name="user_id" id="user_id" class="input-section"/><br/><br/>
+                    <label for="Password">Password [7 to 12 Characters] : </label>
+                    <input type="password" name="Password" id="Password" class="input-section" required/><br/><br/>
+                    <label for="Name">Name [Alphabates Characters] : </label>
+                    <input type="text" name="Name" id="Name" class="input-section" required/><br/><br/>
+                    <label for="Address">Address [Alphanumeric Characters] : </label>
+                    <input type="text" name="Address" id="Address" class="input-section" required/><br/><br/>
+                    <label for="Country">Country [Must Select a Country] : </label>
+                    <select class="select-section" id="Continent">
+                        <option disabled selected>(Please Select a Country)</option>
+                        <option value="India">India</option>
+                        <option value="America">America</option>
+                        <option value="Japan">Japan</option>
+                        <option value="South korea">South korea</option>
+                        <option value="Germany">Germany</option>
+                        <option value="Bangladesh">Bangladesh</option>
+                        <option value="Russia">Russia</option>
+                    </select><br/><br/>
+                    <label for="ZIP_code">ZIP Code [Alphanumeric Characters] : </label>
+                    <input type="text" name="ZIP_code" id="ZIP_code" class="input-section"/><br/><br/>
+                    <label for="Email">Email [Valid Email] : </label>
+                    <input type="email" name="Email" id="Email" class="input-section" required/><br/><br/>
+                    <label for="Gender">Select Male or Female : </label>
+                    <input type="radio" name="Gender" id="Male" value="Male"/>Male
+                    <input type="radio" name="Gender" id="Female" value="Female"/>Female<br/><br/>
+                    <label for="Language">Language [Optional] : </label>
+                    <input type="checkbox" name="Language" id="English" value="English"/>English
+                    <input type="checkbox" name="Language" id="Non-English" value="Non-English"/>Non-English<br/><br/>
+                    <label for="About">About [Optional] : </label>
+                    <textarea name="About" id="About" cols="30" rows="10"></textarea><br/><br/>
+                    <button value="submit" id="submit-button">Submit</button>
+                </form>
+            </div>
+            <script>
+                document.addEventListener("DOMContentLoaded",function(){
+                    document.getElementById('submit-button').addEventListener('click',validateTheForm);
+                    function validateTheForm(){
+                        console.log('Its working!');
+                        const user_id = document.getElementById('user_id');
+                        const user_id_value = user_id.value;
+                        const user_id_pattern = /[a-zA-Z\.0-9\.]+/;
+                        const user_id_check = user_id_pattern.test(user_id_value);
+                        if(user_id_value === '' || !(user_id_check)){
+                            user_id.style.borderColor = 'red';
+                        }else{
+                            user_id.style.borderColor = 'green';
+                        }
+                        const password = document.getElementById('Password');
+                        const password_value = password.value.trim();
+                        const password_pattern = /[A-Z{1}a-z\.0-9{7}]+/;
+                        const password_check = password_pattern.test(password_value);
+                        if(password_value === '' || !(password_value)){
+                            password.style.borderColor = 'red';
+                        }else{
+                            password.style.borderColor = 'green';
+                        }
+                        const name = document.getElementById('Name');
+                        const name_value = name.value.trim();
+                        const name_pattern = /[A-Z{1}a-z{15}]+/;
+                        const name_check = name_pattern.test(name_value);
+                        if(name_value === '' || !(name_check)){
+                            name.style.borderColor = 'red';
+                        }else{
+                            name.style.borderColor = 'green';
+                        }
+                        const address = document.getElementById('Address');
+                        const address_value = address.value;
+                        const address_pattern = /[0-9{2}\/0-9{2}\,a-z{15}\,a-z{10}\-0-9{2}]+/;
+                        const address_check = address_pattern.test(address_value);
+                        if(address_value === '' || !(address_check)){
+                            address.style.borderColor = 'red';
+                        }else{
+                            address.style.borderColor = 'green';
+                        }
+                    }
+                });
+            </script>
+        </main>
+    </body>
+</html>\
